@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { Alert, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+const BANCO_PALAVRAS = [
+  "REACT", "JAVA", "PYTHON", "MOBILE", "EXPO", 
+  "TYPESCRIPT", "NODE", "GITHUB", "COMPUTACAO", 
+  "ALGORITMO", "BANCO", "CODIGO", "COMPILADOR",
+  "VARIAVEL", "FUNCAO", "INTERFACE", "SOFTWARE"
+];
+
+const obterPalavraAleatoria = () => {
+  const indice = Math.floor(Math.random() * BANCO_PALAVRAS.length);
+  return BANCO_PALAVRAS[indice];
+};
+
 export default function JogoForca() {
-  const palavras = ["REACT", "JAVA", "PYTHON", "MOBILE", "EXPO", "TYPESCRIPT", "NODE"];
-  const [palavraSecreta, setPalavraSecreta] = useState(palavras[0]);
+  const [palavraSecreta, setPalavraSecreta] = useState(obterPalavraAleatoria);
   const [letrasAcertadas, setLetrasAcertadas] = useState<string[]>([]);
   const [erros, setErros] = useState(0);
   const limiteErros = 6;
@@ -114,8 +125,7 @@ export default function JogoForca() {
   };
 
   const reiniciar = () => {
-    const indiceAleatorio = Math.floor(Math.random() * palavras.length);
-    setPalavraSecreta(palavras[indiceAleatorio]);
+    setPalavraSecreta(obterPalavraAleatoria());
     setLetrasAcertadas([]);
     setErros(0);
   };
@@ -165,7 +175,7 @@ export default function JogoForca() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f8fafc", padding: 16, alignItems: "center", justifyContent: "center" },
+  container: { flex: 1, backgroundColor: "#f8fafc", padding: 16, alignItems: "center", centerContent: true, justifyContent: "center" },
   title: { fontSize: 20, fontWeight: "bold", color: "#0f172a", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 },
   forcaContainer: { backgroundColor: "#ffffff", padding: 10, borderRadius: 16, borderWidth: 1, borderColor: "#e2e8f0", width: 200, alignItems: "center", marginBottom: 15, elevation: 1 },
   forcaTexto: { fontFamily: "monospace", fontSize: 16, lineHeight: 20, color: "#334155" },
